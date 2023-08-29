@@ -3,17 +3,16 @@ import Topic from '@/models/topic'
 import { NextResponse } from 'next/server'
 
 export async function POST(request) {
-  const { title, description } = await request.json()
+  const { title, description, isChecked } = await request.json()
   await connectMonngoDB()
-
-  await Topic.create({ title, description })
+  await Topic.create({ title, description,isChecked })
   return NextResponse.json({ message: ' Topic Created' }, { status: 201 })
 }
 
 export async function GET() {
   await connectMonngoDB()
-  const topics = await Topic.find()
-  return NextResponse.json({ topics })
+  const tasks = await Topic.find()
+  return NextResponse.json({ tasks })
 }
 
 export async function DELETE(request) {
